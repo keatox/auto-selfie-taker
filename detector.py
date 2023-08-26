@@ -21,16 +21,14 @@ while True:
     for (x,y,w,h) in face:
         cv2.rectangle(image,(x,y),(x+w,y+h),(200,200,0),2)
 
-        #creates bounding box for smile detection
+        #display smile in rectangle when detected
         bound_gray = greyimage[y:y+h, x:x+w]
         bound_color = image[y:y+h, x:x+w]
-        smile = smile_cascade.detectMultiScale(bound_gray,1.8,40)
-
-        #display smile in rectangle when detected 
+        smile = smile_cascade.detectMultiScale(bound_gray,1.8,40) 
         for (i, j, a, b) in smile:
             cv2.rectangle(bound_color,(i,j), (i+a,j+b),(0,255,0),2)
 
-        #takes selfie if smile is detected
+        #takes selfie if smile is detected and saves to local folder
         if not smile_detected and len(smile)>0:
             smile_detected = True
             start_time = time.time()
